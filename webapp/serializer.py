@@ -5,4 +5,4 @@ class MyFileSerializer(serializers.ModelSerializer):
  class Meta():
      model = MyFile
      # fields = ('file', 'description', 'uploaded_at')
-     fields = ('file')
+     fields = ('file','url')
