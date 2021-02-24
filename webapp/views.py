@@ -1,22 +1,11 @@
-# from PIL import ImageGrab
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
-# import numpy
-# import PIL
-# from .serializer import MyFileSerializer
-# import cv2
-# from django.views.decorators.csrf import csrf_exempt
-# from django.http import JsonResponse
-# import numpy as np
 import urllib
 from skimage import io
-# import json
 import cv2
 import numpy as np
-# # import requests  # to get image from the web
-# import shutil  # to save it locally
 from numpy import asarray
 import urllib.request
 
