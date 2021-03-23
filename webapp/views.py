@@ -53,7 +53,7 @@ class MyFileView(APIView):
            keypoints = len(keypoints_1)            
         else:
            keypoints = len(keypoints_2)
-        ans=len(match_points) / keypoints    
+        ans=len(match_points) / keypoints * 100  
         if (len(match_points) / keypoints)>0.95:
            print("% match: ", len(match_points) / keypoints * 100)
            print("Figerprint ID: " + str(file)) 
