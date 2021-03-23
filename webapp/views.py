@@ -69,6 +69,7 @@ class MyFileView(APIView):
          denom = len(matches)
          ans = num / denom * 100
         # file_serializer = MyFileSerializer(data=request.data)
+      print(ans)  
       if ans>=75:
        return Response(True, status=status.HTTP_200_OK)
 
