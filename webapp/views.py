@@ -48,7 +48,7 @@ class MyFileView(APIView):
       for p, q in matches:
         if p.distance < 0.1 * q.distance:
             match_points.append(p)
-             keypoints = 0
+            keypoints = 0
         if len(keypoints_1) <= len(keypoints_2):
            keypoints = len(keypoints_1)            
         else:
@@ -82,7 +82,7 @@ class MyFileView(APIView):
 #          ans = num / denom * 100
         # file_serializer = MyFileSerializer(data=request.data)
       print(ans)  
-      if ans>=75:
+      if ans>=0.95:
        return Response(True, status=status.HTTP_200_OK)
 
       else:
