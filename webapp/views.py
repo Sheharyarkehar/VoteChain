@@ -47,6 +47,7 @@ class MyFileView(APIView):
       ans = 0.0
       for p, q in matches:
         if p.distance < 0.2 * q.distance:
+          match_points.append(p)
       keypoints = 0
 
       if len(keypoints_1) == len(matches):
