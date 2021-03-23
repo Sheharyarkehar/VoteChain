@@ -46,43 +46,30 @@ class MyFileView(APIView):
       match_points = []
       ans = 0.0
       for p, q in matches:
-        if p.distance < 0.1 * q.distance:
-            match_points.append(p)
-            keypoints = 0
-        if len(keypoints_1) <= len(keypoints_2):
-           keypoints = len(keypoints_1)            
-        else:
+        if p.distance < 0.2 * q.distance:
+      keypoints = 0
+
+      if len(keypoints_1) == len(matches):
            keypoints = len(keypoints_2)
-        ans=len(match_points) / keypoints * 100  
-        if (len(match_points) / keypoints)>0.95:
-           print("% match: ", len(match_points) / keypoints * 100)
-           print("Figerprint ID: " + str(file)) 
-           result = cv2.drawMatches(test_original, keypoints_1, fingerprint_database_image,keypoints_2, match_points, None) 
+      else:
+           keypoints = len(keypoints_1)
+
+           result = cv2.drawMatches(test_original, keypoints_1, fingerprint_database_image,
+                                 keypoints_2, match_points, None)
            result = cv2.resize(result, None, fx=2.5, fy=2.5)
-           break;
-#       keypoints = 0
 
-#       if len(keypoints_1) == len(matches):
-#            keypoints = len(keypoints_2)
-#       else:
-#            keypoints = len(keypoints_1)
+      if keypoints >= len(matches):
+          num = len(matches)
+          denom = keypoints
+          ans = num / denom * 100
 
-#            result = cv2.drawMatches(test_original, keypoints_1, fingerprint_database_image,
-#                                  keypoints_2, match_points, None)
-#            result = cv2.resize(result, None, fx=2.5, fy=2.5)
-
-#       if keypoints >= len(matches):
-#           num = len(matches)
-#           denom = keypoints
-#           ans = num / denom * 100
-
-#       else:
-#          num = keypoints
-#          denom = len(matches)
-#          ans = num / denom * 100
+      else:
+         num = keypoints
+         denom = len(matches)
+         ans = num / denom * 100
         # file_serializer = MyFileSerializer(data=request.data)
       print(ans)  
-      if ans>=0.95:
+      if ans>=75:
        return Response(True, status=status.HTTP_200_OK)
 
       else:
