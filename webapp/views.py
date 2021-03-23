@@ -59,7 +59,7 @@ class MyFileView(APIView):
            print("Figerprint ID: " + str(file)) 
            result = cv2.drawMatches(test_original, keypoints_1, fingerprint_database_image,keypoints_2, match_points, None) 
            result = cv2.resize(result, None, fx=2.5, fy=2.5)
-        break;
+           break;
 #       keypoints = 0
 
 #       if len(keypoints_1) == len(matches):
