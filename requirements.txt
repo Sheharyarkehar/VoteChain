@@ -246,4 +246,5 @@ urllib3==1.24.2
 # zict==1.0.0
 # zipp==0.6.0
 opencv-contrib-python-headless==4.5.1.48
+fingerprint-enhancer==0.0.11
 # opencv-python==4.5.1.48
