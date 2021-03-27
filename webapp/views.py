@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 from numpy import asarray
 import urllib.request
+import fingerprint_enhancer	
 
 def _grab_image(path=None, stream=None, url=None):
                 # if the path is not None, then load the image from disk
@@ -39,14 +40,16 @@ class MyFileView(APIView):
       table=str.maketrans(dict.fromkeys("''"))
       img = io.imread(a.translate(table))
       fingerprint_database_image =asarray(cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+      t1= fingerprint_enhancer.enhance_Fingerprint(test_original)
+      t2= fingerprint_enhancer.enhance_Fingerprint(fingerprint_database_image)
       sift = cv2.xfeatures2d.SIFT_create()
-      keypoints_1, descriptors_1 = sift.detectAndCompute(test_original, None)
-      keypoints_2, descriptors_2 = sift.detectAndCompute(fingerprint_database_image, None)
+      keypoints_1, descriptors_1 = sift.detectAndCompute(t1, None)
+      keypoints_2, descriptors_2 = sift.detectAndCompute(t2, None)
       matches = cv2.FlannBasedMatcher(dict(algorithm=1, trees=10), dict()).knnMatch(descriptors_1,descriptors_2, k=2)
       match_points = []
       ans = 0.0
       for p, q in matches:
-        if p.distance < 0.2 * q.distance:
+        if p.distance < 0.7 * q.distance:
           match_points.append(p)
       keypoints = 0
 
@@ -62,12 +65,12 @@ class MyFileView(APIView):
       if keypoints >= len(matches):
           num = len(matches)
           denom = keypoints
-          ans = num / denom * 100
+          ans = (num / denom) * 100
 
       else:
          num = keypoints
          denom = len(matches)
-         ans = num / denom * 100
+         ans = (num / denom) * 100
         # file_serializer = MyFileSerializer(data=request.data)
       print(ans)  
       if ans>=75:
