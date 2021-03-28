@@ -35,11 +35,14 @@ class MyFileView(APIView):
     def post(self, request, *args, **kwargs):
       image = _grab_image(stream=request.FILES["file"])
       test_original=image
+      print(test_original)
       table = str.maketrans(dict.fromkeys("[]"))
       a=str(request.POST.getlist('url')).translate(table)
       table=str.maketrans(dict.fromkeys("''"))
       img = io.imread(a.translate(table))
       fingerprint_database_image =asarray(cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+      print(before)
+      print(fingerprint_database_image)
       t1= fingerprint_enhancer.enhance_Fingerprint(test_original)
       t2= fingerprint_enhancer.enhance_Fingerprint(fingerprint_database_image)
       sift = cv2.xfeatures2d.SIFT_create()
